@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Howard Tetris</title>
+  <link rel="stylesheet" href="src/css/game.css">
+</head>
+
+<body>
+  <div id='game'></div>
+  <script type="text/javascript" src='src/js/Game.js'></script>
+  <script type="text/javascript" src='src/js/Container.js'></script>
+  <script type="text/javascript" src='src/js/tetris.js'></script>
+  <script type="text/javascript" src='src/js/control.js'></script>
+</body>
+<script type="text/javascript">
+var game = new Game();
+game.bind(document.querySelector('#game'));
+game.init(new Container(), 14, 14, 1000);
+game.start();
+</script>
+
+</html>
