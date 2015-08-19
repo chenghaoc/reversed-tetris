@@ -1,23 +1,24 @@
 var Container = (function() {
   var Container = function() {};
 
-  Container.prototype.init = function(game, width, height) {
+  Container.prototype.init = function(game, width, height, fallSpeed) {
     this.game = game;
     this.width = width;
     this.height = height;
     this.map = this.makeMap(width, height);
+    this.fallSpeed = fallSpeed;
     this.drawContainer();
     // test
-    this.dropTetris(new Tetris(this, 3, 3, 0));
+    this.dropTetris(new Tetris(this, 3, 3, Math.random()));
     //
   };
   Container.prototype.update = function() {
     this.clean();
-    if (this.curTetris.update()) {
+    if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
       // time to have next tetris
       this.fillTetris(this.curTetris);
-      this.dropTetris(new Tetris(this, 3, 3, 0));
+      this.dropTetris(new Tetris(this, 3, 3, Math.random()));
     };
     this.curTetris.draw(this);
   };
@@ -60,7 +61,6 @@ var Container = (function() {
     var areas = tetris.getArea();
     var container = this;
     areas.forEach(function(area) {
-      console.log(container.map);
       container.map[area.row][area.column].occupy = 1;
       container.map[area.column][area.row].view.classList.add('container__block--occupy')
     });

@@ -2,16 +2,32 @@ var Tetris = (function() {
 
   var TetrisShape = [
     [
-      [0, 1],
-      [1, 2],
+      [0, 1, 2],
+      [1],
       [1]
+    ],
+    [
+      [0, 1, 2],
+      [1],
+      [0, 1, 2]
+    ],
+    [
+      [0, 1, 2],
+      [0, 2],
+      [0, 2]
+    ],
+    [
+      [0],
+      [0],
+      [0, 1, 2]
     ]
   ];
   var Tetris = function(container, width, height, type) {
     this.container = container;
     this.width = width;
     this.height = height;
-    this.occupy = TetrisShape[type];
+    this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
+    this.counter = 0;
     var r = Math.floor(Math.random() * (this.container.width - this.width))
     console.log(r)
     this.setInitPosition(r, 0);
@@ -49,27 +65,45 @@ var Tetris = (function() {
     // console.log('=== draw tetris ===')
     var blocks = view.querySelectorAll('.container__block');
     areas.forEach(function(area) {
-    	console.log(area)
       blocks[area].classList.add('container__block--tetris');
     })
   };
 
-  Tetris.prototype.update = function() {
+  Tetris.prototype.update = function(fallSpeed) {
     // console.log('=== update tetris ===');
-    if (this.isHitWall() || this.isHitBlocks())
-      return true;
+    if (++this.counter >= fallSpeed) {
+      this.counter = 0;
+      return this.fall();
+    }
+  };
+
+  Tetris.prototype.fall = function() {
     ++this.position.column;
+
+    // get temp next position,
+    // for determining if it will hit blocks
+    if (this.isHitWall() || this.isHitBlocks()) {
+      --this.position.column;
+      return true;
+    }
+    return false;
+  };
+
+  Tetris.prototype.slide = function(direction) {
+    this.position.row += direction;
+    if (this.isHitWall() || this.isHitBlocks()) {
+      this.position.row -= direction;
+      return true;
+    }
+    return false;
   };
 
   Tetris.prototype.isHitBlocks = function() {
     var map = this.container.map;
     var areas;
     var isHit = false;
-    // get temp next position,
-    // for determining if it will hit blocks
-    ++this.position.column;
+
     areas = this.getArea();
-    --this.position.column;
 
     areas.forEach(function(area) {
       if (map[area.row][area.column].occupy === 1)
@@ -85,7 +119,9 @@ var Tetris = (function() {
     var container = this.container;
     var isHit = false;
     areas.forEach(function(area) {
-      if (area.column + 1 >= container.height) {
+      if (area.column >= container.height ||
+        area.row >= container.width ||
+        area.row < 0) {
         isHit = true;
         return;
       }
