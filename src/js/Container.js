@@ -120,6 +120,16 @@ var Container = (function() {
     })
   };
 
+  Container.prototype.rush = function() {
+  	if (!this.OriginalSpeed)
+  		this.OriginalSpeed = this.fallSpeed;
+    this.fallSpeed = this.fallSpeed / 5;
+  };
+
+  Container.prototype.release = function() {
+    this.fallSpeed = this.OriginalSpeed;
+  };
+
   Container.prototype.drawContainer = function() {
     var view = this.game.view;
 

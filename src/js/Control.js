@@ -21,11 +21,16 @@ var Control = (function() {
       } else if (e.keyCode === control.RIGHT) {
         game.container.curTetris.slide(1);
       } else if (e.keyCode === control.DOWN) {
-        game.container.curTetris.rush();
+        game.container.rush();
       } else if (e.keyCode === control.HOR_REVERSE) {
         game.container.reverse();
       } else if (e.keyCode === control.VER_REVERSE) {
 
+      }
+    });
+    window.addEventListener('keyup', function(e) {
+      if (e.keyCode === control.DOWN) {
+        game.container.release();
       }
     });
   };

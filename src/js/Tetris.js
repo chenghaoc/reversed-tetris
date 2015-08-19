@@ -2,30 +2,21 @@ var Tetris = (function() {
 
   var TetrisShape = [
     [
-      [0, 1, 2],
+      [0, 1],
       [1],
     ],
     [
-      [0, 1, 2],
       [1],
-      [0, 1, 2]
+      [0, 1]
     ],
     [
       [0, 1],
       [1, 2]
     ],
     [
-      [0, 2],
-      [0, 1, 2]
-    ],
-    [
-      [0],
-      [0, 1, 2]
-    ],
-    [
       [0],
       [0],
-      [0, 1, 2]
+      [0, 1]
     ],
     // [
     //   [0, 1, 2],
@@ -108,12 +99,6 @@ var Tetris = (function() {
     return false;
   };
 
-  Tetris.prototype.rush = function() {
-    while (!(this.isHitWall() || this.isHitBlocks())) {
-      ++this.position.y;
-    }
-    --this.position.y;
-  };
 
   Tetris.prototype.isHitBlocks = function() {
     var map = this.container.map;

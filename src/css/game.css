@@ -24,9 +24,12 @@
 		margin: 2px;
 		background: black;
 	}
-	.container__block--tetris {
-		background: grey;
-	}
+/*	.container__block--occupy ~ .container__block{
+		background: red;
+	}*/
 	.container__block--occupy {
 		background: blue;
+	}
+	.container__block--tetris {
+		background: grey;
 	}
