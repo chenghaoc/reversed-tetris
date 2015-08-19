@@ -17,6 +17,10 @@
 /**/
 
 * {
+	margin:0;
+	padding:0;
+}
+* {
 	box-sizing: border-box;
 }
 
@@ -35,47 +39,70 @@
 	float: left;
 }
 	.sidebar__element {
+		margin: 1em 0;
 		padding: .3em .5em;
 	}
-	.sidebar__element--next {}
-		.sidebar__element--next__row {}
-		.sidebar__element--next__block {
-			float: left;
-			width: 30px;
-			height: 30px;
-			margin: 1px;
+		.sidebar__element__next {
+			width: 100px;
+    	margin: 0 auto;
 		}
-		.sidebar__element--next__block--fill {
-			background: black;
-		}
-	.sidebar__element--combo {
-		overflow: hidden;
-	}
-		.sidebar__element--combo__fill {
+			.sidebar__element__next__row {}
+			.sidebar__element__next__block {
+				float: left;
+				width: 30px;
+				height: 30px;
+				margin: 1px;
+			}
+			.sidebar__element__next__block--fill {
+				background: black;
+			}
+		.sidebar__element__combo {
+			overflow: hidden;
 			width: 0;
 			height: 30px;
-			background: black;
+			background: #c0392b;
 		}
-	.sidebar__element--score {
-		font-size: 36pt;
-		text-align: center;
-		text-decoration: underline;
-		font-weight: bolder;
-	}
+		.sidebar__element__score {
+			font-size: 36pt;
+			text-align: center;
+			text-decoration: underline;
+			font-weight: bolder;
+		}
+		.sidebar__element__title {
+			font-size: 26pt;
+			line-height: 40pt;
+			text-align: center;
+			text-decoration: none;
+		}
 
 .container {}
 /* clearfix */
 	.container__row {}
 	.container__block {
 		float: left;
-		width: 45px;
-		height: 45px;
+		width: 36px;
+		height: 36px;
 		margin: 2px;
 		background: black;
 	}
-	.container__block--occupy.container__block--occupy {
-		background: blue;
+	.container__block--occupy {
+		background: #7f8c8d;
 	}
-	.container__block--tetris {
-		background: grey;
+	.container__block--tetris--red {
+		background: #e74c3c;
+	}
+	.container__block--tetris--orange {
+		background: #f39c12;
+	}
+	.container__block--tetris--yellow {
+		background: #f1c40f;
+	}
+	.container__block--tetris--green {
+		background: #2ecc71;
+	}
+	.container__block--tetris--blue {
+		background: #3498db;
+	}
+	.container__block--tetris--purple {
+		background: #9b59b6;
 	}

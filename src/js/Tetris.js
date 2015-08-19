@@ -2,34 +2,59 @@ var Tetris = (function() {
 
   var TetrisShape = [
     [
-      [0, 1   ],
-      [   1   ],
-      [   1   ]
+      [0, 1],
+      [1],
+      [1]
     ],
     [
-      [0, 1   ],
-      [   0   ],
-      [   0   ]
+      [0, 1],
+      [0],
+      [0]
     ],
     [
-      [0, 1   ],
-      [		1, 2],
-      [				]
+      [0, ],
+      [0, 1, 2],
+      []
     ],
     [
-      [0      ],
-      [0			],
-      [0, 1		]
+      [2],
+      [0, 1, 2],
+      []
     ],
     [
-      [0, 1		],
-      [0			],
-      [0			]
+      [0, 1, 2],
+      [0],
+      []
     ],
     [
-      [		1, 2],
-      [0, 1		],
-      [				]
+      [0, 1, 2],
+      [2],
+      []
+    ],
+    [
+      [0, 1],
+      [1, 2],
+      []
+    ],
+    [
+      [0],
+      [0],
+      [0, 1]
+    ],
+    [
+      [0, 1],
+      [0],
+      [0]
+    ],
+    [
+      [1, 2],
+      [0, 1],
+      []
+    ],
+    [
+      [1],
+      [1],
+      [1],
     ],
     // [
     //   [0, 1, 2],
@@ -37,12 +62,22 @@ var Tetris = (function() {
     //   [0, 1, 2]
     // ]
   ];
+
+  var tetrisColor = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple'
+  ]
   var Tetris = function(container, width, height, type) {
     this.container = container;
     this.width = width;
     this.height = height;
     this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
     this.counter = 0;
+    this.color = null;
     var r = Math.floor(Math.random() * (this.container.width - this.width))
     this.setInitPosition(r, 0);
     // this.setInitPosition(0, 0);
@@ -73,13 +108,17 @@ var Tetris = (function() {
     var view = container.game.view;
     var width = container.width;
     var height = container.height;
-    var areas = this.getArea().map(function(area) {
-      return area.y * width + area.x;
-    });
-    // console.log('=== draw tetris ===')
+    var areas = this.getArea()
+      // console.log('=== draw tetris ===')
     var blocks = view.querySelectorAll('.container__block');
+    var color;
+    if (!this.color)
+      color = this.color = tetrisColor[Math.floor(Math.random() * tetrisColor.length)];
+    else
+      color = this.color;
     areas.forEach(function(area) {
-      blocks[area].classList.add('container__block--tetris');
+      container.map[area.y][area.x].color = color;
+      container.map[area.y][area.x].view.classList.add('container__block--tetris--' + color);
     })
   };
 

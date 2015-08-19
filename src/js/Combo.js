@@ -33,7 +33,7 @@ var Combo = (function() {
 		this.scorePanel = scorePanel;
 	};
 	Combo.prototype.show = function() {
-		this.energyBar.style.width = this.energy * 20 + 'px';
+		this.energyBar.style.width = this.energy * 17 + 'px';
 		this.scorePanel.textContent = this.score;
 	};
 

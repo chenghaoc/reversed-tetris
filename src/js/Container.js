@@ -34,7 +34,8 @@ var Container = (function() {
     this.map.forEach(function(row) {
       row.forEach(function(block) {
         // console.log(block.occupy)
-        block.view.classList.remove('container__block--tetris');
+        var color = block.color;
+        block.view.classList.remove('container__block--tetris--' + color);
       })
     })
   };
@@ -46,6 +47,7 @@ var Container = (function() {
       map[y] = [];
       while (x < width) {
         map[y][x] = {
+        	color: null,
           view: null,
           occupy: 0
         }; // 0: unoccupied
@@ -79,13 +81,13 @@ var Container = (function() {
     this.nextTetris = tetris;
     var container = this;
     [].forEach.call(container.nextBlocksView, function(e) {
-      e.classList.remove('sidebar__element--next__block--fill');
+      e.classList.remove('sidebar__element__next__block--fill');
     });
     tetris.occupy.forEach(function(row, index) {
 
       row.forEach(function(element) {
         var value = element + index * 3;
-        container.nextBlocksView[value].classList.add('sidebar__element--next__block--fill');
+        container.nextBlocksView[value].classList.add('sidebar__element__next__block--fill');
       })
     })
   };

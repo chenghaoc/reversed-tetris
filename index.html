@@ -11,28 +11,33 @@
   <div class='main clearfix'>
     <div class='game' id='game'></div>
     <div class='sidebar'>
-      <div class='sidebar__element--next sidebar__element'>
-        <div class='sidebar__element--next__row clearfix'>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
-        </div>
-        <div class='sidebar__element--next__row clearfix'>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
-        </div>
-        <div class='sidebar__element--next__row clearfix'>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
-          <div class='sidebar__element--next__block'></div>
+      <div class=' sidebar__element'>
+        <div class='sidebar__element__title'>NEXT</div>
+        <div class='sidebar__element__next'>
+          <div class='sidebar__element__next__row clearfix'>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+          </div>
+          <div class='sidebar__element--next__row clearfix'>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+          </div>
+          <div class='sidebar__element--next__row clearfix'>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+            <div class='sidebar__element__next__block'></div>
+          </div>
         </div>
       </div>
-      <div class='sidebar__element--combo sidebar__element'>
-        <div class='sidebar__element--combo__fill transible'></div>
+      <div class='sidebar__element'>
+        <div class='sidebar__element__title'>ENERGY</div>
+        <div class='sidebar__element__combo transible'></div>
       </div>
-      <div class='sidebar__element--score sidebar__element'>
-        0
+      <div class='sidebar__element'>
+        <div class='sidebar__element__title'>SCORE</div>
+        <div class='sidebar__element__score'></div>
       </div>
     </div>
   </div>
@@ -45,11 +50,11 @@
 <script type="text/javascript">
 var game = new Game();
 
-game.init(new Container(), new Control(), 12, 16, 20, {
+game.init(new Container(), new Control(), 12, 16, 30, {
   target: document.querySelector('#game'),
-  energy: document.querySelector('.sidebar__element--combo__fill'),
-  score: document.querySelector('.sidebar__element--score'),
-  next: document.querySelectorAll('.sidebar__element--next__block')
+  energy: document.querySelector('.sidebar__element__combo'),
+  score: document.querySelector('.sidebar__element__score'),
+  next: document.querySelectorAll('.sidebar__element__next__block')
 });
 game.start();
 </script>
