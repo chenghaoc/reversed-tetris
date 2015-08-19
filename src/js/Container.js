@@ -55,17 +55,15 @@ var Container = (function() {
       var blocks = y.reduce(function(memo, element, index, array) {
         return memo + element.occupy;
       }, 0);
-      console.log(blocks)
       if (blocks > 0) {
         y.map(function(element) {
           // reverse
-          console.log(element)
           element.occupy = (1 - element.occupy);
-          element.view.classList.toggle('container__block--occupy');
           return element;
         })
       }
     });
+    this.refreshView();
   };
 
   Container.prototype.dropTetris = function(tetris) {
@@ -79,25 +77,47 @@ var Container = (function() {
       container.map[area.y][area.x].occupy = 1;
       container.map[area.y][area.x].view.classList.add('container__block--occupy')
     });
+    container.refreshView();
   };
 
   Container.prototype.removeCompletedRows = function() {
-  	var container = this;
-    this.map.forEach(function(y) {
+    var container = this;
+    this.map.forEach(function(y, yIndex) {
       var blocks = y.reduce(function(memo, element, index, array) {
         return memo + element.occupy;
       }, 0);
-      console.log(blocks + ',' + container.width)
       if (blocks === container.width) {
         y.map(function(element) {
           // reverse
-          console.log(element)
           element.occupy = 0;
-          element.view.classList.remove('container__block--occupy');
           return element;
-        })
+        });
+        container.downOneRow(yIndex);
       }
     });
+    this.refreshView();
+  };
+
+  Container.prototype.downOneRow = function(rowNo) {
+    var map = this.map;
+    var yIndex = rowNo - 1;
+    for (yIndex; yIndex > 0; --yIndex) {
+      map[yIndex].forEach(function(element, xIndex) {
+        map[yIndex + 1][xIndex].occupy = element.occupy;
+      })
+    }
+  };
+
+  Container.prototype.refreshView = function() {
+    this.map.forEach(function(y) {
+      y.forEach(function(block) {
+        if (block.occupy === 0) {
+          block.view.classList.remove('container__block--occupy');
+        } else {
+          block.view.classList.add('container__block--occupy');
+        }
+      })
+    })
   };
 
   Container.prototype.drawContainer = function() {

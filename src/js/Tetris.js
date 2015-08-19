@@ -4,7 +4,6 @@ var Tetris = (function() {
     [
       [0, 1, 2],
       [1],
-      [1]
     ],
     [
       [0, 1, 2],
@@ -12,9 +11,16 @@ var Tetris = (function() {
       [0, 1, 2]
     ],
     [
-      [0, 1, 2],
+      [0, 1],
+      [1, 2]
+    ],
+    [
       [0, 2],
-      [0, 2]
+      [0, 1, 2]
+    ],
+    [
+      [0],
+      [0, 1, 2]
     ],
     [
       [0],
@@ -100,6 +106,13 @@ var Tetris = (function() {
       return true;
     }
     return false;
+  };
+
+  Tetris.prototype.rush = function() {
+    while (!(this.isHitWall() || this.isHitBlocks())) {
+      ++this.position.y;
+    }
+    --this.position.y;
   };
 
   Tetris.prototype.isHitBlocks = function() {
