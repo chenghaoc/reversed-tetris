@@ -20,7 +20,12 @@ var Tetris = (function() {
       [0],
       [0],
       [0, 1, 2]
-    ]
+    ],
+    // [
+    //   [0, 1, 2],
+    //   [0, 1, 2],
+    //   [0, 1, 2]
+    // ]
   ];
   var Tetris = function(container, width, height, type) {
     this.container = container;
@@ -29,26 +34,25 @@ var Tetris = (function() {
     this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
     this.counter = 0;
     var r = Math.floor(Math.random() * (this.container.width - this.width))
-    console.log(r)
     this.setInitPosition(r, 0);
     // this.setInitPosition(0, 0);
   };
 
-  Tetris.prototype.setInitPosition = function(row, column) {
+  Tetris.prototype.setInitPosition = function(x, y) {
     this.position = {
-      row: row,
-      column: column
+      x: x,
+      y: y
     }
   };
 
   Tetris.prototype.getArea = function() {
     var tetris = this;
     var totalArea = [];
-    this.occupy.forEach(function(row, i) {
-      row.forEach(function(block) {
+    this.occupy.forEach(function(x, i) {
+      x.forEach(function(block) {
         var area = {};
-        area.row = tetris.position.row + block;
-        area.column = tetris.position.column + i;
+        area.x = tetris.position.x + block;
+        area.y = tetris.position.y + i;
         totalArea.push(area);
       })
     });
@@ -60,7 +64,7 @@ var Tetris = (function() {
     var width = container.width;
     var height = container.height;
     var areas = this.getArea().map(function(area) {
-      return area.column * width + area.row;
+      return area.y * width + area.x;
     });
     // console.log('=== draw tetris ===')
     var blocks = view.querySelectorAll('.container__block');
@@ -78,21 +82,21 @@ var Tetris = (function() {
   };
 
   Tetris.prototype.fall = function() {
-    ++this.position.column;
+    ++this.position.y;
 
     // get temp next position,
     // for determining if it will hit blocks
     if (this.isHitWall() || this.isHitBlocks()) {
-      --this.position.column;
+      --this.position.y;
       return true;
     }
     return false;
   };
 
   Tetris.prototype.slide = function(direction) {
-    this.position.row += direction;
+    this.position.x += direction;
     if (this.isHitWall() || this.isHitBlocks()) {
-      this.position.row -= direction;
+      this.position.x -= direction;
       return true;
     }
     return false;
@@ -106,7 +110,7 @@ var Tetris = (function() {
     areas = this.getArea();
 
     areas.forEach(function(area) {
-      if (map[area.row][area.column].occupy === 1)
+      if (map[area.y][area.x].occupy === 1)
         isHit = true;
     })
     return isHit;
@@ -119,9 +123,9 @@ var Tetris = (function() {
     var container = this.container;
     var isHit = false;
     areas.forEach(function(area) {
-      if (area.column >= container.height ||
-        area.row >= container.width ||
-        area.row < 0) {
+      if (area.y >= container.height ||
+        area.x >= container.width ||
+        area.x < 0) {
         isHit = true;
         return;
       }
