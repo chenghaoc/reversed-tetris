@@ -1,16 +1,21 @@
 var Game = (function() {
   var Game = function() {};
 
-  Game.prototype.init = function(container, control, width, height, speed) {
+  Game.prototype.init = function(container, control, width, height, speed, views) {
     this.container = container;
-    this.container.init(this, width, height, speed);
     this.control = control;
+
+    this.view = views.target;
+    this.combo = new Combo();
+    this.combo.bind(views.energy, views.score);
+    this.container.bind(views.next);
+
+    this.container.init(this, width, height, speed);
     this.control.init(this);
+
     this.speed = speed;
   };
-  Game.prototype.bind = function(target) {
-    this.view = target;
-  };
+
   Game.prototype.start = function() {
     var game = this;
     this.frame = window.requestAnimationFrame(function() {

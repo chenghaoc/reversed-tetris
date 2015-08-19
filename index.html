@@ -8,16 +8,49 @@
 </head>
 
 <body>
-  <div id='game'></div>
+  <div class='main clearfix'>
+    <div class='game' id='game'></div>
+    <div class='sidebar'>
+      <div class='sidebar__element--next sidebar__element'>
+        <div class='sidebar__element--next__row clearfix'>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+        </div>
+        <div class='sidebar__element--next__row clearfix'>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+        </div>
+        <div class='sidebar__element--next__row clearfix'>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+          <div class='sidebar__element--next__block'></div>
+        </div>
+      </div>
+      <div class='sidebar__element--combo sidebar__element'>
+        <div class='sidebar__element--combo__fill transible'></div>
+      </div>
+      <div class='sidebar__element--score sidebar__element'>
+        0
+      </div>
+    </div>
+  </div>
   <script type="text/javascript" src='src/js/Game.js'></script>
   <script type="text/javascript" src='src/js/Container.js'></script>
   <script type="text/javascript" src='src/js/Tetris.js'></script>
   <script type="text/javascript" src='src/js/Control.js'></script>
+  <script type="text/javascript" src='src/js/Combo.js'></script>
 </body>
 <script type="text/javascript">
 var game = new Game();
-game.bind(document.querySelector('#game'));
-game.init(new Container(), new Control(), 12, 16, 20);
+
+game.init(new Container(), new Control(), 12, 16, 20, {
+  target: document.querySelector('#game'),
+  energy: document.querySelector('.sidebar__element--combo__fill'),
+  score: document.querySelector('.sidebar__element--score'),
+  next: document.querySelectorAll('.sidebar__element--next__block')
+});
 game.start();
 </script>
 

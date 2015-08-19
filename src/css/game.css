@@ -11,10 +11,59 @@
   clear:both;
 }
 
-.container {
-	width: 750px;
+.transible {
+	transition: all .1s;
+}
+/**/
+
+* {
+	box-sizing: border-box;
+}
+
+/**/
+
+.main {
 	margin: 0 auto;
 }
+
+.game {
+	float: left;
+}
+
+.sidebar {
+	width: 200px;
+	float: left;
+}
+	.sidebar__element {
+		padding: .3em .5em;
+	}
+	.sidebar__element--next {}
+		.sidebar__element--next__row {}
+		.sidebar__element--next__block {
+			float: left;
+			width: 30px;
+			height: 30px;
+			margin: 1px;
+		}
+		.sidebar__element--next__block--fill {
+			background: black;
+		}
+	.sidebar__element--combo {
+		overflow: hidden;
+	}
+		.sidebar__element--combo__fill {
+			width: 0;
+			height: 30px;
+			background: black;
+		}
+	.sidebar__element--score {
+		font-size: 36pt;
+		text-align: center;
+		text-decoration: underline;
+		font-weight: bolder;
+	}
+
+.container {}
 /* clearfix */
 	.container__row {}
 	.container__block {
@@ -24,10 +73,7 @@
 		margin: 2px;
 		background: black;
 	}
-/*	.container__block--occupy ~ .container__block{
-		background: red;
-	}*/
-	.container__block--occupy {
+	.container__block--occupy.container__block--occupy {
 		background: blue;
 	}
 	.container__block--tetris {

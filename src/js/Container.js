@@ -9,17 +9,24 @@ var Container = (function() {
     this.fallSpeed = fallSpeed;
     this.drawContainer();
     // test
+    this.nextTetris = new Tetris(this, 3, 3, Math.random());
     this.dropTetris(new Tetris(this, 3, 3, Math.random()));
     //
   };
+  Container.prototype.bind = function(nextBlocksView) {
+    this.nextBlocksView = nextBlocksView;
+  };
+
   Container.prototype.update = function() {
     this.clean();
+    this.game.combo.decreaseEnergy(0.01);
     if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
       // time to have next tetris
       this.fillTetris(this.curTetris);
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
+      this.game.combo.increaseEnergy(1);
     };
     this.curTetris.draw(this);
   };
@@ -64,10 +71,23 @@ var Container = (function() {
       }
     });
     this.refreshView();
+    this.game.combo.explode();
   };
 
   Container.prototype.dropTetris = function(tetris) {
-    this.curTetris = tetris;
+    this.curTetris = this.nextTetris;
+    this.nextTetris = tetris;
+    var container = this;
+    [].forEach.call(container.nextBlocksView, function(e) {
+      e.classList.remove('sidebar__element--next__block--fill');
+    });
+    tetris.occupy.forEach(function(row, index) {
+
+      row.forEach(function(element) {
+        var value = element + index * 3;
+        container.nextBlocksView[value].classList.add('sidebar__element--next__block--fill');
+      })
+    })
   };
 
   Container.prototype.fillTetris = function(tetris) {
@@ -93,6 +113,7 @@ var Container = (function() {
           return element;
         });
         container.downOneRow(yIndex);
+        container.game.combo.increaseEnergy(2);
       }
     });
     this.refreshView();
@@ -121,8 +142,8 @@ var Container = (function() {
   };
 
   Container.prototype.rush = function() {
-  	if (!this.OriginalSpeed)
-  		this.OriginalSpeed = this.fallSpeed;
+    if (!this.OriginalSpeed)
+      this.OriginalSpeed = this.fallSpeed;
     this.fallSpeed = this.fallSpeed / 5;
   };
 
