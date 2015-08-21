@@ -8,8 +8,17 @@
 </head>
 
 <body>
-  <div class='main clearfix'>
-    <div class='game' id='game'></div>
+  <div class='menu'>
+    <div class='menu__panel'>
+      <div class='menu__panel__element menu__panel__header'>Tetris R</div>
+      <button class='menu__panel__element menu__panel__btn'>RESUME</button>
+      <button class='menu__panel__element menu__panel__btn'>RESTART</button>
+      <div class='menu__panel__element menu__panel__score'>39</div>
+    </div>
+  </div>
+  <div class='main'>
+    <div class='game transible' id='game'>
+    </div>
     <div class='sidebar'>
       <div class=' sidebar__element'>
         <div class='sidebar__element__title'>NEXT</div>
@@ -37,7 +46,7 @@
       </div>
       <div class='sidebar__element'>
         <div class='sidebar__element__title'>SCORE</div>
-        <div class='sidebar__element__score'></div>
+        <div class='sidebar__element__score'>0</div>
       </div>
     </div>
   </div>

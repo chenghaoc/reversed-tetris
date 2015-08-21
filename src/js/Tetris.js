@@ -73,12 +73,12 @@ var Tetris = (function() {
   ]
   var Tetris = function(container, width, height, type) {
     this.container = container;
+    this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
     this.width = width;
     this.height = height;
-    this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
     this.counter = 0;
     this.color = null;
-    var r = Math.floor(Math.random() * (this.container.width - this.width))
+    var r = Math.floor(Math.random() * (this.container.width - this.width + 1))
     this.setInitPosition(r, 0);
     // this.setInitPosition(0, 0);
   };
@@ -117,10 +117,16 @@ var Tetris = (function() {
     else
       color = this.color;
     areas.forEach(function(area) {
+
+      // lose
+      if (container.map[area.y][area.x].view.classList.contains('container__block--occupy'))
+        container.hitCeil();
+
       container.map[area.y][area.x].color = color;
       container.map[area.y][area.x].view.classList.add('container__block--tetris--' + color);
     })
   };
+
 
   Tetris.prototype.update = function(fallSpeed) {
     // console.log('=== update tetris ===');

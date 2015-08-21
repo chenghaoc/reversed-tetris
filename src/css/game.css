@@ -14,6 +14,12 @@
 .transible {
 	transition: all .1s;
 }
+
+.filter-cover {
+	filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
 /**/
 
 * {
@@ -25,14 +31,60 @@
 }
 
 /**/
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .main {
-	margin: 0 auto;
+	width: 680px;
 }
 
 .game {
 	float: left;
 }
+
+.menu {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	display: none;
+
+}
+	.menu__panel {
+		position: relative;
+		width: 300px;
+		padding: .5em 1em;
+		text-align: center;
+
+
+		background-color: #ecf0f1;
+	}
+		.menu__panel__element {
+			margin: 10px 0;
+		}
+		.menu__panel__header {
+			font-size: 24pt;
+		}
+		.menu__panel__btn {
+			padding: 10px;
+			font-size: 12pt;
+		}
+		.menu__panel__score {
+			font-size: 24pt;
+		}
 
 .sidebar {
 	width: 200px;

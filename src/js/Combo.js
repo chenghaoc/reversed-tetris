@@ -11,9 +11,10 @@ var Combo = (function() {
 
 	Combo.prototype.increaseEnergy = function(no) {
 		if (this.energy >= energyLimit)
-			return;
+			return true;
 		this.energy += no;
 		this.show();
+		return false;
 	};
 	Combo.prototype.decreaseEnergy = function(no) {
 		if (++ this.decreaseIndex < 3 || this.energy <= 0)
@@ -23,11 +24,13 @@ var Combo = (function() {
 		this.show();
 	};
 
-	Combo.prototype.explode = function() {
+	Combo.prototype.clear = function() {
 		this.score += Math.floor(this.energy);
 		this.energy = 0;
 		this.show();
 	};
+
+
 	Combo.prototype.bind = function(energyBar, scorePanel) {
 		this.energyBar = energyBar;
 		this.scorePanel = scorePanel;

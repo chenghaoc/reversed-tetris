@@ -25,6 +25,11 @@ var Game = (function() {
   Game.prototype.stop = function() {
 
   };
+  Game.prototype.lose = function() {
+    //
+
+    this.stop();
+  };
   Game.prototype.step = function() {
     var game = this;
     this.container.update();

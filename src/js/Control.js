@@ -4,6 +4,7 @@ var Control = (function() {
   Control.prototype.LEFT = 37;
   Control.prototype.RIGHT = 39;
   Control.prototype.DOWN = 40;
+  Control.prototype.ESC = 27;
   Control.prototype.HOR_REVERSE = 90;
   Control.prototype.VER_REVERSE = 88;
 

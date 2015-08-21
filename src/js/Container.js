@@ -19,14 +19,18 @@ var Container = (function() {
 
   Container.prototype.update = function() {
     this.clean();
-    this.game.combo.decreaseEnergy(0.01);
+    this.game.combo.decreaseEnergy(0.001);
     if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
       // time to have next tetris
       this.fillTetris(this.curTetris);
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
-      this.game.combo.increaseEnergy(1);
+      if (this.game.combo.increaseEnergy(0)) {
+        // true means reach limit
+        // time to explode
+        this.collapse();
+      }
     };
     this.curTetris.draw(this);
   };
@@ -47,7 +51,7 @@ var Container = (function() {
       map[y] = [];
       while (x < width) {
         map[y][x] = {
-        	color: null,
+          color: null,
           view: null,
           occupy: 0
         }; // 0: unoccupied
@@ -73,7 +77,6 @@ var Container = (function() {
       }
     });
     this.refreshView();
-    this.game.combo.explode();
   };
 
   Container.prototype.dropTetris = function(tetris) {
@@ -100,6 +103,10 @@ var Container = (function() {
       container.map[area.y][area.x].view.classList.add('container__block--occupy')
     });
     container.refreshView();
+  };
+
+  Container.prototype.hitCeil = function() {
+    this.game.lose();
   };
 
   Container.prototype.removeCompletedRows = function() {
@@ -129,6 +136,39 @@ var Container = (function() {
         map[yIndex + 1][xIndex].occupy = element.occupy;
       })
     }
+  };
+
+  Container.prototype.collapse = function() {
+    var block;
+    var container = this;
+    block = this.map.reduce(function(outerMemo, ele, outerIndex) {
+      ele.reduce(function(innerMemo, ele, innerIndex) {
+        if (ele.occupy === 1)
+          innerMemo.push({
+            x: innerIndex,
+            y: outerIndex,
+            tetris: ele
+          });
+        return innerMemo;
+      }, outerMemo)
+      return outerMemo;
+    }, [])
+    block.reverse().forEach(function(element, index) {
+      var x = element.x;
+      var y = element.y;
+      var tetris = element.tetris;
+      var curTetris = tetris;
+      var nextTetris = container.map[y][x];
+      tetris.occupy = 0;
+      while (y <= container.height && nextTetris.occupy === 0) {
+        curTetris = nextTetris;
+        nextTetris = (y < container.height) ? container.map[y][x] : null;
+        ++y;
+      }
+      curTetris.occupy = 1;
+    })
+    this.refreshView();
+    this.game.combo.clear();
   };
 
   Container.prototype.refreshView = function() {
