@@ -43,7 +43,7 @@ var Container = (function() {
         return;
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
-      if (this.game.combo.increaseEnergy(10)) {
+      if (this.game.combo.increaseEnergy(0.5)) {
         // true means reach limit
         // time to explode
         console.log('c')
@@ -168,34 +168,71 @@ var Container = (function() {
     var block;
     var container = this;
     block = this.map.reduce(function(outerMemo, ele, outerIndex) {
-      ele.reduce(function(innerMemo, ele, innerIndex) {
-        if (ele.occupy === 1)
-          innerMemo.push({
-            x: innerIndex,
-            y: outerIndex,
-            tetris: ele
-          });
-        return innerMemo;
-      }, outerMemo);
-      return outerMemo;
-    }, [])
-    block.reverse().forEach(function(element, index) {
-      var x = element.x;
-      var y = element.y;
-      var tetris = element.tetris;
-      var curTetris = tetris;
-      var nextTetris = container.map[y][x];
+        ele.reduce(function(innerMemo, ele, innerIndex) {
+          if (ele.occupy === 1)
+            innerMemo.push({
+              x: innerIndex,
+              y: outerIndex,
+              tetris: ele
+            });
+          return innerMemo;
+        }, outerMemo);
+        return outerMemo;
+      }, [])
+      // block.reverse().forEach(function(element, index) {
+      //   var x = element.x;
+      //   var y = element.y;
+      //   var tetris = element.tetris;
+      //   var curTetris = tetris;
+      //   var nextTetris = container.map[y][x];
+      //   tetris.occupy = 0;
+
+
+    //   while (y <= container.height && nextTetris.occupy === 0) {
+    //     curTetris = nextTetris;
+    //     nextTetris = (y < container.height) ? container.map[y][x] : null;
+    //     ++y;
+    //   }
+    //   curTetris.occupy = 1;
+    // })
+    // container.refreshView(true);
+
+    block = block.reverse();
+    var blockIndex = 0;
+    var element = block[blockIndex];
+    var x = element.x;
+    var y = element.y;
+    var tetris = element.tetris;
+    var curTetris = tetris;
+    var nextTetris = container.map[y][x];
+
+    function drop() {
       tetris.occupy = 0;
-
-
-      while (y <= container.height && nextTetris.occupy === 0) {
+      container.refreshView(false);
+      if (y <= container.height && nextTetris.occupy === 0) {
+        curTetris.occupy = 0;
         curTetris = nextTetris;
         nextTetris = (y < container.height) ? container.map[y][x] : null;
         ++y;
+      } else {
+        ++blockIndex;
+        if (blockIndex === block.length) {
+          container.refreshView(false);
+          return;
+        }
+        element = block[blockIndex];
+        x = element.x;
+        y = element.y;
+        tetris = element.tetris;
+        curTetris = tetris;
+        nextTetris = container.map[y][x];
+
       }
+      console.log(curTetris)
       curTetris.occupy = 1;
-    })
-    container.refreshView(true);
+      window.requestAnimationFrame(drop);
+    }
+    window.requestAnimationFrame(drop);
 
     this.game.combo.clear();
   };

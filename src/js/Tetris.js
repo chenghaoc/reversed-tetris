@@ -64,8 +64,6 @@ var Tetris = (function() {
   ];
 
   var TetrisShape2 = [[
-  [0,1,2],
-  [0,1,2],
   [0,1,2]
   ]];
 
@@ -79,7 +77,7 @@ var Tetris = (function() {
   ]
   var Tetris = function(container, width, height, type) {
     this.container = container;
-    this.occupy = TetrisShape2[Math.floor(type * TetrisShape2.length)];
+    this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
     this.width = width;
     this.height = height;
     this.counter = 0;
