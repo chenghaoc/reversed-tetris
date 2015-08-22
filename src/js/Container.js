@@ -3,16 +3,32 @@ var Container = (function() {
 
   Container.prototype.init = function(game, width, height, fallSpeed) {
     this.game = game;
-    this.width = width;
-    this.height = height;
+    this.width = width ? width : this.width;
+    this.height = height ? height : this.height;
     this.map = this.makeMap(width, height);
-    this.fallSpeed = fallSpeed;
+    this.fallSpeed = this.OriginalSpeed = fallSpeed ? fallSpeed : this.fallSpeed;
     this.drawContainer();
     // test
     this.nextTetris = new Tetris(this, 3, 3, Math.random());
     this.dropTetris(new Tetris(this, 3, 3, Math.random()));
     //
   };
+  Container.prototype.restart = function() {
+    var newMap = this.makeMap(this.width, this.height);
+    this.map.forEach(function(y, yIndex) {
+      y.forEach(function(x, xIndex) {
+        newMap[yIndex][xIndex].view = x.view;
+      })
+    })
+    this.map = newMap;
+    this.refreshView(false);
+    this.clean();
+    // test
+    this.nextTetris = new Tetris(this, 3, 3, Math.random());
+    this.dropTetris(new Tetris(this, 3, 3, Math.random()));
+    //
+  };
+
   Container.prototype.bind = function(nextBlocksView) {
     this.nextBlocksView = nextBlocksView;
   };
@@ -23,12 +39,14 @@ var Container = (function() {
     if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
       // time to have next tetris
-      this.fillTetris(this.curTetris);
+      if (!this.fillTetris(this.curTetris))
+        return;
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
-      if (this.game.combo.increaseEnergy(0)) {
+      if (this.game.combo.increaseEnergy(10)) {
         // true means reach limit
         // time to explode
+        console.log('c')
         this.collapse();
       }
     };
@@ -76,13 +94,15 @@ var Container = (function() {
         })
       }
     });
-    this.refreshView();
+    this.refreshView(false);
   };
 
   Container.prototype.dropTetris = function(tetris) {
     this.curTetris = this.nextTetris;
     this.nextTetris = tetris;
     var container = this;
+    container.release();
+    // console.log(container.fallSpeed);
     [].forEach.call(container.nextBlocksView, function(e) {
       e.classList.remove('sidebar__element__next__block--fill');
     });
@@ -98,11 +118,17 @@ var Container = (function() {
   Container.prototype.fillTetris = function(tetris) {
     var areas = tetris.getArea();
     var container = this;
+    var isContinue = true;
     areas.forEach(function(area) {
+      if (area.y === 0) {
+        container.hitCeil();
+        isContinue = false;
+      }
       container.map[area.y][area.x].occupy = 1;
       container.map[area.y][area.x].view.classList.add('container__block--occupy')
     });
-    container.refreshView();
+    container.refreshView(true);
+    return isContinue;
   };
 
   Container.prototype.hitCeil = function() {
@@ -125,7 +151,7 @@ var Container = (function() {
         container.game.combo.increaseEnergy(2);
       }
     });
-    this.refreshView();
+    this.refreshView(true);
   };
 
   Container.prototype.downOneRow = function(rowNo) {
@@ -150,7 +176,7 @@ var Container = (function() {
             tetris: ele
           });
         return innerMemo;
-      }, outerMemo)
+      }, outerMemo);
       return outerMemo;
     }, [])
     block.reverse().forEach(function(element, index) {
@@ -160,6 +186,8 @@ var Container = (function() {
       var curTetris = tetris;
       var nextTetris = container.map[y][x];
       tetris.occupy = 0;
+
+
       while (y <= container.height && nextTetris.occupy === 0) {
         curTetris = nextTetris;
         nextTetris = (y < container.height) ? container.map[y][x] : null;
@@ -167,16 +195,25 @@ var Container = (function() {
       }
       curTetris.occupy = 1;
     })
-    this.refreshView();
+    container.refreshView(true);
+
     this.game.combo.clear();
   };
 
-  Container.prototype.refreshView = function() {
+  Container.prototype.refreshView = function(animated) {
     this.map.forEach(function(y) {
       y.forEach(function(block) {
-        if (block.occupy === 0) {
-          block.view.classList.remove('container__block--occupy');
-        } else {
+        if (block.occupy === 0 && block.view.classList.contains('container__block--occupy')) {
+          if (animated) {
+            block.view.addEventListener("animationend", function(e) {
+              block.view.classList.remove('container__block--occupy');
+              block.view.classList.remove('container__block--occupying');
+            }, false);
+            block.view.classList.add('container__block--occupying');
+          } else {
+            block.view.classList.remove('container__block--occupy');
+          }
+        } else if (block.occupy != 0 && !block.view.classList.contains('container__block--occupy')) {
           block.view.classList.add('container__block--occupy');
         }
       })

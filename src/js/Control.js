@@ -5,8 +5,8 @@ var Control = (function() {
   Control.prototype.RIGHT = 39;
   Control.prototype.DOWN = 40;
   Control.prototype.ESC = 27;
-  Control.prototype.HOR_REVERSE = 90;
-  Control.prototype.VER_REVERSE = 88;
+  Control.prototype.R = 82;
+  Control.prototype.SPACE = 32;
 
   Control.prototype.init = function(game) {
     this.game = game;
@@ -23,10 +23,10 @@ var Control = (function() {
         game.container.curTetris.slide(1);
       } else if (e.keyCode === control.DOWN) {
         game.container.rush();
-      } else if (e.keyCode === control.HOR_REVERSE) {
+      } else if (e.keyCode === control.R) {
         game.container.reverse();
-      } else if (e.keyCode === control.VER_REVERSE) {
-
+      } else if (e.keyCode === control.SPACE) {
+        game.container.reverse();
       }
     });
     window.addEventListener('keyup', function(e) {

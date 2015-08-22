@@ -63,6 +63,12 @@ var Tetris = (function() {
     // ]
   ];
 
+  var TetrisShape2 = [[
+  [0,1,2],
+  [0,1,2],
+  [0,1,2]
+  ]];
+
   var tetrisColor = [
     'red',
     'orange',
@@ -73,7 +79,7 @@ var Tetris = (function() {
   ]
   var Tetris = function(container, width, height, type) {
     this.container = container;
-    this.occupy = TetrisShape[Math.floor(type * TetrisShape.length)];
+    this.occupy = TetrisShape2[Math.floor(type * TetrisShape2.length)];
     this.width = width;
     this.height = height;
     this.counter = 0;
@@ -117,11 +123,6 @@ var Tetris = (function() {
     else
       color = this.color;
     areas.forEach(function(area) {
-
-      // lose
-      if (container.map[area.y][area.x].view.classList.contains('container__block--occupy'))
-        container.hitCeil();
-
       container.map[area.y][area.x].color = color;
       container.map[area.y][area.x].view.classList.add('container__block--tetris--' + color);
     })

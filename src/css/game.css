@@ -1,24 +1,3 @@
-.clearfix {
-  zoom:1;
-}
-/* clearfix */
-.clearfix:before,
-.clearfix:after {
-  content:"";
-  display:table;
-}
-.clearfix:after {
-  clear:both;
-}
-
-.transible {
-	transition: all .1s;
-}
-
-.filter-cover {
-	filter: blur(2px);
-  -webkit-filter: blur(2px);
-}
 
 /**/
 
@@ -35,8 +14,9 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
+/**/
 
-body {
+.flexbox {
 	display: flex;
   justify-content: center;
   align-items: center;
@@ -60,27 +40,43 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-	display: none;
-
 }
 	.menu__panel {
 		position: relative;
-		width: 300px;
+		width: 100%;
 		padding: .5em 1em;
 		text-align: center;
-
-
 		background-color: #ecf0f1;
+
+		display: flex;
+		justify-content: center;
+  	align-items: center;
 	}
+		.menu__panel__block {
+			float: left;
+			width: 150px;
+			height: 100%;
+		}
+			.menu__panel__block--header {
+				border-right: 1px solid #000000;
+			}
 		.menu__panel__element {
-			margin: 10px 0;
 		}
 		.menu__panel__header {
 			font-size: 24pt;
 		}
 		.menu__panel__btn {
+			min-width: 100px;
+			margin-bottom: 5px;
 			padding: 10px;
 			font-size: 12pt;
+			background: #ecf0f1;
+			border: 1px solid black;
+			cursor: pointer;
+		}
+		.menu__panel__btn:hover {
+			background: #000000;
+			color: #ecf0f1;
 		}
 		.menu__panel__score {
 			font-size: 24pt;
@@ -140,6 +136,10 @@ body {
 	.container__block--occupy {
 		background: #7f8c8d;
 	}
+	.container__block--occupying {
+		-webkit-animation-duration: .3s;
+    -webkit-animation-name: occupying;
+	}
 	.container__block--tetris--red {
 		background: #e74c3c;
 	}
@@ -158,3 +158,43 @@ body {
 	.container__block--tetris--purple {
 		background: #9b59b6;
 	}
+@-webkit-keyframes occupying {
+  from {
+    background: #7f8c8d;
+  }
+  to {
+    background: #000000;
+  }
+}
+
+/*
+*
+*/
+.clearfix {
+  zoom:1;
+}
+/* clearfix */
+.clearfix:before,
+.clearfix:after {
+  content:"";
+  display:table;
+}
+.clearfix:after {
+  clear:both;
+}
+
+.transible {
+	transition: all .1s;
+}
+.display-none {
+	display: none;
+}
+.filter-cover {
+	filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.color-emphasis {
+	color: #9b59b6;
+}
+
