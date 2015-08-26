@@ -27,6 +27,9 @@ var Control = (function() {
         game.container.reverse();
       } else if (e.keyCode === control.SPACE) {
         game.container.reverse();
+      } else if (e.keyCode === control.ESC) {
+        game.stop();
+        game.menu.show();
       }
     });
     window.addEventListener('keyup', function(e) {

@@ -186,6 +186,9 @@ html, body {
 .transible {
 	transition: all .1s;
 }
+.slow-transible {
+	transition: all 2s;
+}
 .display-none {
 	display: none;
 }

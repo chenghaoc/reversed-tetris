@@ -113,6 +113,7 @@ var Container = (function() {
         container.nextBlocksView[value].classList.add('sidebar__element__next__block--fill');
       })
     })
+    container.game.combo.increaseScore(2);
   };
 
   Container.prototype.fillTetris = function(tetris) {
@@ -149,6 +150,7 @@ var Container = (function() {
         });
         container.downOneRow(yIndex);
         container.game.combo.increaseEnergy(2);
+        container.game.combo.increaseScore(10);
       }
     });
     this.refreshView(true);
@@ -167,6 +169,8 @@ var Container = (function() {
   Container.prototype.collapse = function() {
     var block;
     var container = this;
+    var game = this.game;
+    game.stop();
     block = this.map.reduce(function(outerMemo, ele, outerIndex) {
         ele.reduce(function(innerMemo, ele, innerIndex) {
           if (ele.occupy === 1)
@@ -218,6 +222,8 @@ var Container = (function() {
         ++blockIndex;
         if (blockIndex === block.length) {
           container.refreshView(false);
+          container.removeCompletedRows();
+          game.start();
           return;
         }
         element = block[blockIndex];

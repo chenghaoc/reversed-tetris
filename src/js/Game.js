@@ -21,6 +21,7 @@ var Game = (function() {
 
   Game.prototype.restart = function() {
     this.container.restart();
+    this.combo.reset();
   };
 
   Game.prototype.start = function() {
