@@ -7,6 +7,7 @@ var Container = (function() {
     this.height = height ? height : this.height;
     this.map = this.makeMap(width, height);
     this.fallSpeed = this.OriginalSpeed = fallSpeed ? fallSpeed : this.fallSpeed;
+    this.noOfDropTetris = 0;
     this.drawContainer();
     // test
     this.nextTetris = new Tetris(this, 3, 3, Math.random());
@@ -21,6 +22,7 @@ var Container = (function() {
       })
     })
     this.map = newMap;
+    this.noOfDropTetris = 0;
     this.refreshView(false);
     this.clean();
     // test
@@ -113,6 +115,9 @@ var Container = (function() {
         container.nextBlocksView[value].classList.add('sidebar__element__next__block--fill');
       })
     })
+    ++ container.noOfDropTetris;
+    container.fallSpeed = 30 - container.noOfDropTetris / 2;
+    container.OriginalSpeed = container.fallSpeed;
     container.game.combo.increaseScore(2);
   };
 

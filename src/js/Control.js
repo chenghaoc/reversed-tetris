@@ -17,6 +17,8 @@ var Control = (function() {
     var tetris = game.container.curTetris;
     var control = this;
     window.addEventListener('keydown', function(e) {
+      if (!game.running)
+        return;
       if (e.keyCode === control.LEFT) {
         game.container.curTetris.slide(-1);
       } else if (e.keyCode === control.RIGHT) {
