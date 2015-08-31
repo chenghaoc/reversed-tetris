@@ -59,3 +59,19 @@ var Menu = (function() {
 
   return Menu;
 })();
+
+var game = new Game();
+
+game.init(
+  new Container(),
+  new Control(),
+  new Menu(),
+  12,
+  16,
+  30, {
+    target: document.querySelector('#game'),
+    energy: document.querySelector('.sidebar__element__combo'),
+    score: document.querySelector('.sidebar__element__score'),
+    next: document.querySelectorAll('.sidebar__element__next__block'),
+    menu: document.querySelector('.menu')
+  });

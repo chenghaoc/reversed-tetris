@@ -45,10 +45,9 @@ var Container = (function() {
         return;
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
-      if (this.game.combo.increaseEnergy(0.5)) {
+      if (this.game.combo.increaseEnergy(0.2)) {
         // true means reach limit
         // time to explode
-        console.log('c')
         this.collapse();
       }
     };
@@ -116,9 +115,9 @@ var Container = (function() {
       })
     })
     ++ container.noOfDropTetris;
-    container.fallSpeed = 30 - container.noOfDropTetris / 2;
+    container.fallSpeed = 30 - Math.sqrt(container.noOfDropTetris);
     container.OriginalSpeed = container.fallSpeed;
-    container.game.combo.increaseScore(2);
+    container.game.combo.increaseScore(2 * Math.floor(30 - container.OriginalSpeed));
   };
 
   Container.prototype.fillTetris = function(tetris) {
@@ -188,24 +187,6 @@ var Container = (function() {
         }, outerMemo);
         return outerMemo;
       }, [])
-      // block.reverse().forEach(function(element, index) {
-      //   var x = element.x;
-      //   var y = element.y;
-      //   var tetris = element.tetris;
-      //   var curTetris = tetris;
-      //   var nextTetris = container.map[y][x];
-      //   tetris.occupy = 0;
-
-
-    //   while (y <= container.height && nextTetris.occupy === 0) {
-    //     curTetris = nextTetris;
-    //     nextTetris = (y < container.height) ? container.map[y][x] : null;
-    //     ++y;
-    //   }
-    //   curTetris.occupy = 1;
-    // })
-    // container.refreshView(true);
-
     block = block.reverse();
     var blockIndex = 0;
     var element = block[blockIndex];
