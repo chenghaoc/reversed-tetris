@@ -19,6 +19,11 @@ var Container = (function() {
     this.map.forEach(function(y, yIndex) {
       y.forEach(function(x, xIndex) {
         newMap[yIndex][xIndex].view = x.view;
+        newMap[yIndex][xIndex].view.classList.forEach(function(cls) {
+          if (cls != "container__block") {
+            newMap[yIndex][xIndex].view.classList.remove(cls);
+          }
+        })
       })
     })
     this.map = newMap;
@@ -83,11 +88,19 @@ var Container = (function() {
     return map;
   };
   Container.prototype.reverse = function() {
-    this.map.forEach(function(y) {
+    var cur = this.curTetris;
+    var hasTetris = false;
+    this.map.forEach(function(y, i) {
       var blocks = y.reduce(function(memo, element, index, array) {
         return memo + element.occupy;
       }, 0);
-      if (blocks > 0) {
+      if (blocks > 0 && !hasTetris) {
+        var tetrisHeight = cur.occupy[2].length == 0 ? 2 : 3;
+        if (cur.position.y + tetrisHeight >= i) {
+          hasTetris = true;
+          return;
+        }
+
         y.map(function(element) {
           // reverse
           element.occupy = (1 - element.occupy);
@@ -109,15 +122,15 @@ var Container = (function() {
     });
     tetris.occupy.forEach(function(row, index) {
 
-      row.forEach(function(element) {
-        var value = element + index * 3;
-        container.nextBlocksView[value].classList.add('sidebar__element__next__block--fill');
+        row.forEach(function(element) {
+          var value = element + index * 3;
+          container.nextBlocksView[value].classList.add('sidebar__element__next__block--fill');
+        })
       })
-    })
-    ++ container.noOfDropTetris;
+      ++container.noOfDropTetris;
     container.fallSpeed = 30 - Math.sqrt(container.noOfDropTetris);
     container.OriginalSpeed = container.fallSpeed;
-    container.game.combo.increaseScore(2 * Math.floor(30 - container.OriginalSpeed));
+
   };
 
   Container.prototype.fillTetris = function(tetris) {
@@ -132,6 +145,7 @@ var Container = (function() {
       container.map[area.y][area.x].occupy = 1;
       container.map[area.y][area.x].view.classList.add('container__block--occupy')
     });
+    container.game.combo.increaseScore(2 * Math.floor(30 - container.OriginalSpeed));
     container.refreshView(true);
     return isContinue;
   };
@@ -176,17 +190,17 @@ var Container = (function() {
     var game = this.game;
     game.stop();
     block = this.map.reduce(function(outerMemo, ele, outerIndex) {
-        ele.reduce(function(innerMemo, ele, innerIndex) {
-          if (ele.occupy === 1)
-            innerMemo.push({
-              x: innerIndex,
-              y: outerIndex,
-              tetris: ele
-            });
-          return innerMemo;
-        }, outerMemo);
-        return outerMemo;
-      }, [])
+      ele.reduce(function(innerMemo, ele, innerIndex) {
+        if (ele.occupy === 1)
+          innerMemo.push({
+            x: innerIndex,
+            y: outerIndex,
+            tetris: ele
+          });
+        return innerMemo;
+      }, outerMemo);
+      return outerMemo;
+    }, [])
     block = block.reverse();
     var blockIndex = 0;
     var element = block[blockIndex];
