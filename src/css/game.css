@@ -17,6 +17,8 @@ html, body {
 /**/
 
 .flexbox {
+	width: 100%;
+	height: 100%;
 	display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +71,7 @@ html, body {
 			min-width: 100px;
 			margin-bottom: 5px;
 			padding: 10px;
-			font-size: 12pt;
+			font-size: 11pt;
 			background: #ecf0f1;
 			border: 1px solid black;
 			cursor: pointer;
@@ -117,7 +119,7 @@ html, body {
 			font-weight: bolder;
 		}
 		.sidebar__element__title {
-			font-size: 26pt;
+			font-size: 16pt;
 			line-height: 40pt;
 			text-align: center;
 			text-decoration: none;

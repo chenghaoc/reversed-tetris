@@ -8,27 +8,7 @@ var Menu = (function() {
   };
 
   Menu.prototype.show = function(type) {
-    if (type === 'start')
-    	this.makeStartMenu();
-    else if (type === 'middle')
-    	this.makeMiddleMenu();
-    else if (type === 'end')
-    	this.makeEndMenu();
-
-
     this.view.classList.remove('display-none');
-  };
-
-  Menu.prototype.makeStartMenu = function() {
-  	// body...
-  };
-
-  Menu.prototype.makeMiddleMenu = function() {
-  	// body...
-  };
-
-  Menu.prototype.makeEndMenu = function() {
-  	// body...
   };
 
   Menu.prototype.hide = function() {
@@ -41,7 +21,6 @@ var Menu = (function() {
 
   Menu.prototype.setListeners = function() {
     var menu = this;
-    console.log(this.view)
     this.view.querySelector('#resume-btn').addEventListener('click', function(e) {
     	menu.game.start();
       menu.hide();
@@ -70,8 +49,8 @@ game.init(
   16,
   30, {
     target: document.querySelector('#game'),
-    energy: document.querySelector('.sidebar__element__combo'),
-    score: document.querySelector('.sidebar__element__score'),
+    energy: document.querySelector('#combo'),
+    score: document.querySelector('#score'),
     next: document.querySelectorAll('.sidebar__element__next__block'),
-    menu: document.querySelector('.menu')
+    menu: document.querySelector('#menu')
   });

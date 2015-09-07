@@ -61,7 +61,6 @@ var Container = (function() {
   Container.prototype.clean = function() {
     this.map.forEach(function(row) {
       row.forEach(function(block) {
-        // console.log(block.occupy)
         var color = block.color;
         block.view.classList.remove('container__block--tetris--' + color);
       })
@@ -83,8 +82,6 @@ var Container = (function() {
       }
       ++y;
     }
-    // console.log('=== make map ===')
-    // console.log(map)
     return map;
   };
   Container.prototype.reverse = function() {
@@ -116,7 +113,6 @@ var Container = (function() {
     this.nextTetris = tetris;
     var container = this;
     container.release();
-    // console.log(container.fallSpeed);
     [].forEach.call(container.nextBlocksView, function(e) {
       e.classList.remove('sidebar__element__next__block--fill');
     });
@@ -234,7 +230,6 @@ var Container = (function() {
         nextTetris = container.map[y][x];
 
       }
-      console.log(curTetris)
       curTetris.occupy = 1;
       window.requestAnimationFrame(drop);
     }
