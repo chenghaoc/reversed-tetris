@@ -124,9 +124,8 @@ var Container = (function() {
         })
       })
       ++container.noOfDropTetris;
-    container.fallSpeed = 30 - Math.sqrt(container.noOfDropTetris);
+    container.fallSpeed = 30 - (Math.log(container.noOfDropTetris) / Math.log(1.3));
     container.OriginalSpeed = container.fallSpeed;
-
   };
 
   Container.prototype.fillTetris = function(tetris) {
@@ -135,7 +134,6 @@ var Container = (function() {
     var isContinue = true;
     areas.forEach(function(area) {
       if (area.y === 0) {
-        container.hitCeil();
         isContinue = false;
       }
       container.map[area.y][area.x].occupy = 1;
@@ -143,6 +141,8 @@ var Container = (function() {
     });
     container.game.combo.increaseScore(2 * Math.floor(30 - container.OriginalSpeed));
     container.refreshView(true);
+    if (!isContinue)
+      container.hitCeil();
     return isContinue;
   };
 
