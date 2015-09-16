@@ -7,7 +7,6 @@ var Menu = (function() {
     this.game = game;
     this.score = new Score();
     this.score.initParse();
-    console.log(type)
     if (type === this.MAIN_MENU)
       this.setListeners();
     else if (type === this.RANK_MENU)
@@ -34,10 +33,16 @@ var Menu = (function() {
     this.view.querySelector('#resume-btn').addEventListener('click', function(e) {
       menu.game.start();
       menu.hide();
+      if (menu.game.isLose) {
+        menu.game.restart();
+      }
     });
     this.view.querySelector('#start-btn').addEventListener('click', function(e) {
       menu.game.start();
       menu.hide();
+      if (menu.game.isLose) {
+        menu.game.restart();
+      }
     });
     this.view.querySelector('#restart-btn').addEventListener('click', function(e) {
       menu.game.restart();

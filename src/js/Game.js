@@ -19,11 +19,13 @@ var Game = (function() {
 
     this.speed = speed;
     this.running = false;
+    this.isLose = false;
   };
 
   Game.prototype.restart = function() {
     this.container.restart();
     this.combo.reset();
+    this.isLose = false;
   };
 
   Game.prototype.start = function() {
@@ -42,6 +44,7 @@ var Game = (function() {
     this.rankMenu.showRank();
     this.rankMenu.show();
     this.stop();
+    this.isLose = true;
   };
   Game.prototype.step = function() {
     var game = this;
