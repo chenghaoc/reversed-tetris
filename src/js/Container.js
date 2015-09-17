@@ -124,9 +124,17 @@ var Container = (function() {
         })
       })
       ++container.noOfDropTetris;
-    container.fallSpeed = 30 - (Math.log(container.noOfDropTetris) / Math.log(1.3));
+    // container.fallSpeed = 30 - (Math.log(container.noOfDropTetris) / Math.log(1.3));
+    // container.fallSpeed = container.OriginalSpeed - (5 / Math.sqrt(container.noOfDropTetris));
+    container.fallSpeed = 1000 / getSpeed(container.OriginalSpeed, container.noOfDropTetris)
     container.OriginalSpeed = container.fallSpeed;
+    console.log(container.fallSpeed)
+
+    function getSpeed(time, nb) {
+      return speed = 1000 / time + (5 / Math.sqrt(nb));
+    };
   };
+
 
   Container.prototype.fillTetris = function(tetris) {
     var areas = tetris.getArea();
