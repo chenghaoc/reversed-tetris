@@ -25,7 +25,7 @@ html, body {
 }
 
 .main {
-	width: 680px;
+	width: 610px;
 }
 
 .game {
@@ -177,8 +177,8 @@ html, body {
 	.container__row {}
 	.container__block {
 		float: left;
-		width: 36px;
-		height: 36px;
+		width: 30px;
+		height: 30px;
 		margin: 2px;
 		background: black;
 	}
