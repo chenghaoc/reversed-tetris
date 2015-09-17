@@ -28,6 +28,7 @@ var Container = (function() {
     })
     this.map = newMap;
     this.noOfDropTetris = 0;
+    this.OriginalSpeed = 30;
     this.refreshView(false);
     this.clean();
     // test
