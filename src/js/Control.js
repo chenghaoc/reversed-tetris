@@ -18,7 +18,6 @@ var Control = (function() {
 
   Control.prototype.dbDownPress = function() {
     var control = this;
-    console.log(control.keyDownCounter)
     if (this.timeout)
       clearTimeout(this.timeout);
     this.timeout = setTimeout(function() {

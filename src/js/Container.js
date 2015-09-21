@@ -8,6 +8,7 @@ var Container = (function() {
     this.map = this.makeMap(width, height);
     this.fallSpeed = this.OriginalSpeed = fallSpeed ? fallSpeed : this.fallSpeed;
     this.noOfDropTetris = 0;
+    this.animatedBlocks = 0;
     this.drawContainer();
     // test
     this.nextTetris = new Tetris(this, 3, 3, Math.random());
@@ -29,7 +30,7 @@ var Container = (function() {
     this.map = newMap;
     this.noOfDropTetris = 0;
     this.OriginalSpeed = 30;
-    this.refreshView(false);
+    this.refreshView(true);
     this.clean();
     // test
     this.nextTetris = new Tetris(this, 3, 3, Math.random());
@@ -86,6 +87,8 @@ var Container = (function() {
     return map;
   };
   Container.prototype.reverse = function() {
+    if (this.animatedBlocks > 0)
+      return;
     var cur = this.curTetris;
     var hasTetris = false;
     this.map.forEach(function(y, i) {
@@ -102,6 +105,8 @@ var Container = (function() {
         y.map(function(element) {
           // reverse
           element.occupy = (1 - element.occupy);
+          if (element.view.classList.contains('container__block--occupying'))
+            console.log('f')
           return element;
         })
       }
@@ -129,10 +134,9 @@ var Container = (function() {
     // container.fallSpeed = container.OriginalSpeed - (5 / Math.sqrt(container.noOfDropTetris));
     container.fallSpeed = 1000 / getSpeed(container.OriginalSpeed, container.noOfDropTetris)
     container.OriginalSpeed = container.fallSpeed;
-    console.log(container.fallSpeed)
 
     function getSpeed(time, nb) {
-      return speed = 1000 / time + (5 / Math.sqrt(nb));
+      return speed = 1000 / time + (4 / Math.sqrt(nb));
     };
   };
 
@@ -215,7 +219,7 @@ var Container = (function() {
 
     function drop() {
       tetris.occupy = 0;
-      container.refreshView(false);
+      container.refreshView(true);
       if (y <= container.height && nextTetris.occupy === 0) {
         curTetris.occupy = 0;
         curTetris = nextTetris;
@@ -224,7 +228,7 @@ var Container = (function() {
       } else {
         ++blockIndex;
         if (blockIndex === block.length) {
-          container.refreshView(false);
+          container.refreshView(true);
           container.removeCompletedRows();
           game.start();
           return;
@@ -246,13 +250,16 @@ var Container = (function() {
   };
 
   Container.prototype.refreshView = function(animated) {
+    var container = this;
     this.map.forEach(function(y) {
       y.forEach(function(block) {
         if (block.occupy === 0 && block.view.classList.contains('container__block--occupy')) {
           if (animated) {
+            ++ container.animatedBlocks;
             block.view.addEventListener("animationend", function(e) {
               block.view.classList.remove('container__block--occupy');
               block.view.classList.remove('container__block--occupying');
+              -- container.animatedBlocks;
             }, false);
             block.view.classList.add('container__block--occupying');
           } else {
@@ -263,6 +270,8 @@ var Container = (function() {
         }
       })
     })
+    if (container.animatedBlocks < 0)
+      container.animatedBlocks = 0;
   };
 
   Container.prototype.rush = function() {
