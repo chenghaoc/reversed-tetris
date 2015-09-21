@@ -146,7 +146,6 @@ var Container = (function() {
         isContinue = false;
       }
       container.map[area.y][area.x].occupy = 1;
-      container.map[area.y][area.x].view.classList.add('container__block--occupy')
     });
     container.game.combo.increaseScore(2 * Math.floor(30 - container.OriginalSpeed));
     container.refreshView(true);
@@ -167,7 +166,6 @@ var Container = (function() {
       }, 0);
       if (blocks === container.width) {
         y.map(function(element) {
-          // reverse
           element.occupy = 0;
           return element;
         });
@@ -271,6 +269,9 @@ var Container = (function() {
     if (!this.OriginalSpeed)
       this.OriginalSpeed = this.fallSpeed;
     this.fallSpeed = this.fallSpeed / 5;
+  };
+  Container.prototype.rushToEnd = function() {
+    while (!this.curTetris.fall()) {}
   };
 
   Container.prototype.release = function() {

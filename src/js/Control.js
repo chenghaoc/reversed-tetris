@@ -11,6 +11,21 @@ var Control = (function() {
   Control.prototype.init = function(game) {
     this.game = game;
     this.keyDownHandler(game);
+    this.series = 0;
+    this.keyDownCounter = 0;
+    this.keyUpCounter = 0;
+  };
+
+  Control.prototype.dbDownPress = function() {
+    var control = this;
+    console.log(control.keyDownCounter)
+    if (this.timeout)
+      clearTimeout(this.timeout);
+    this.timeout = setTimeout(function() {
+
+      control.keyDownCounter = 0;
+      control.keyUpCounter = 0;
+    }, 200)
   };
 
   Control.prototype.keyDownHandler = function(game) {
@@ -20,10 +35,22 @@ var Control = (function() {
       if (!game.running)
         return;
       if (e.keyCode === control.LEFT) {
+        if (control.series > 1)
+          game.container.curTetris.slide(-1);
         game.container.curTetris.slide(-1);
+        ++control.series;
       } else if (e.keyCode === control.RIGHT) {
+        if (control.series > 1)
+          game.container.curTetris.slide(1);
         game.container.curTetris.slide(1);
+        ++control.series;
       } else if (e.keyCode === control.DOWN) {
+        ++control.keyDownCounter;
+        if (control.keyDownCounter >= 2 && control.keyUpCounter >= 1) {
+          game.container.rushToEnd();
+        } else {
+          control.dbDownPress();
+        }
         game.container.rush();
       } else if (e.keyCode === control.R) {
         game.container.reverse();
@@ -36,8 +63,10 @@ var Control = (function() {
     });
     window.addEventListener('keyup', function(e) {
       if (e.keyCode === control.DOWN) {
+        ++control.keyUpCounter;
         game.container.release();
       }
+      control.series = 0;
     });
   };
 
