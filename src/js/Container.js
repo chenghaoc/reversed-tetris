@@ -44,7 +44,7 @@ var Container = (function() {
 
   Container.prototype.update = function() {
     this.clean();
-    this.game.combo.decreaseEnergy(0.001);
+    this.game.combo.decreaseEnergy(0.01);
     if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
       // time to have next tetris
@@ -175,7 +175,7 @@ var Container = (function() {
         });
         container.downOneRow(yIndex);
         container.game.combo.increaseEnergy(2);
-        container.game.combo.increaseScore(10);
+        container.game.combo.increaseScore(10 * Math.floor(30 - container.OriginalSpeed));
       }
     });
     this.refreshView(true);

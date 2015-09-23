@@ -34,11 +34,15 @@ var Control = (function() {
       if (!game.running)
         return;
       if (e.keyCode === control.LEFT) {
+        if (control.series > 0)
+          game.container.curTetris.slide(-1);
         if (control.series > 1)
           game.container.curTetris.slide(-1);
         game.container.curTetris.slide(-1);
         ++control.series;
       } else if (e.keyCode === control.RIGHT) {
+        if (control.series > 0)
+          game.container.curTetris.slide(1);
         if (control.series > 1)
           game.container.curTetris.slide(1);
         game.container.curTetris.slide(1);
