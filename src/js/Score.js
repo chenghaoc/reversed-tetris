@@ -15,13 +15,18 @@ var Score = (function() {
 
   Score.prototype.saveScoreLocal = function(score) {
     var curScore = localStorage.getItem('tetris-score');
-    if (!curScore || score > curScore)
-      localStorage.setItem('tetris-score', score);
+    // if (!curScore || !curScore.length)
+      curScore = [];
+    curScore.push(score);
+    localStorage.setItem('tetris-score', JSON.stringify(curScore));
   };
 
   Score.prototype.getScoreLocal = function() {
-    var score = localStorage.getItem('tetris-score');
-    return score ? score : -1;
+    var score = JSON.parse(localStorage.getItem('tetris-score'));
+    score.sort(function(x, y) {
+      return y - x;
+    });
+    return score ? score : [];
   };
 
   Score.prototype.setScoreParse = function(name, score, callback) {

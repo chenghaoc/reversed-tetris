@@ -24,7 +24,7 @@ var Menu = (function() {
   Menu.prototype.setScore = function(score) {
     this.view.querySelector('#score-panel').textContent = score;
     this.score.saveScoreLocal(score);
-    var highScore = this.score.getScoreLocal();
+    var highScore = this.score.getScoreLocal()[0];
     this.view.querySelector('#high-score-panel').textContent = highScore;
   };
 

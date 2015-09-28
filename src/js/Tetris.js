@@ -77,7 +77,8 @@ var Tetris = (function() {
     this.height = height;
     this.counter = 0;
     this.color = null;
-    var r = Math.floor(Math.random() * (this.container.width - this.width + 1))
+    // var r = Math.floor(Math.random() * (this.container.width - this.width + 1))
+    var r = Math.floor(container.width / 2 - width / 2);
     this.setInitPosition(r, 0);
     // this.setInitPosition(0, 0);
   };
