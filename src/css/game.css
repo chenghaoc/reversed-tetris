@@ -25,11 +25,12 @@ html, body {
 }
 
 .main {
-	width: 610px;
+	display: flex;
+	width: 810px;
 }
 
 .game {
-	float: left;
+	flex: none;
 }
 
 .menu {
@@ -133,8 +134,13 @@ html, body {
 		}
 
 .sidebar {
-	width: 200px;
-	float: left;
+	flex: initial;
+  width: 200px;
+  min-width: 100px;
+}
+.sidebar--reverse {
+	display: flex;
+	flex-direction: column-reverse;
 }
 	.sidebar__element {
 		margin: 1em 0;
@@ -172,6 +178,25 @@ html, body {
 			text-align: center;
 			text-decoration: none;
 		}
+		.sidebar__element__conversation {
+			position: relative;
+			opacity: 0;
+			min-height: 150px;
+			border-radius: 5px;
+	    border: 1px solid black;
+	    padding: 10px;
+		}
+		.sidebar__element__conversation:after {
+			content: "";
+			position: absolute;
+			bottom: -10px;
+			right: 10px;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 10px 6px 0 6px;
+			border-color: #000 transparent transparent transparent;
+		}
 
 .container {}
 	.container__row {}
@@ -186,7 +211,7 @@ html, body {
 		background: #7f8c8d;
 	}
 	.container__block--occupying {
-		-webkit-animation-duration: .3s;
+		-webkit-animation-duration: .2s;
     -webkit-animation-name: occupying;
 	}
 	.container__block--tetris--red {
@@ -219,10 +244,10 @@ html, body {
 /*
 *
 */
+/* clearfix */
 .clearfix {
   zoom:1;
 }
-/* clearfix */
 .clearfix:before,
 .clearfix:after {
   content:"";
@@ -248,5 +273,39 @@ html, body {
 
 .color-emphasis {
 	color: #9b59b6;
+}
+.reversed-color {
+	background-color: #000;
+	color: #fff;
+}
+.js-bubble-showing {
+	animation-duration: .3s;
+	animation-name: show;
+	animation-iteration-count: 1;
+}
+@keyframes show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.js-bubble-animation {
+	opacity: 1;
+	animation-duration: 3s;
+	animation-name: bubble;
+	animation-iteration-count: infinite;
+}
+@keyframes bubble {
+	0% {
+		top: 0;
+	}
+	50% {
+		top: -20px;
+	}
+	100% {
+		top: 0;
+	}
 }
 

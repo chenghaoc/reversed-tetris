@@ -10,6 +10,7 @@ var Container = (function() {
     this.noOfDropTetris = 0;
     this.animatedBlocks = 0;
     this.drawContainer();
+    this.messenger = this.generateMessenger();
     // test
     this.nextTetris = new Tetris(this, 3, 3, Math.random());
     this.dropTetris(new Tetris(this, 3, 3, Math.random()));
@@ -44,6 +45,7 @@ var Container = (function() {
 
   Container.prototype.update = function() {
     this.clean();
+    this.game.conversation.update();
     this.game.combo.decreaseEnergy(0.005);
     if (this.curTetris.update(this.fallSpeed)) {
       // true means hit
@@ -52,6 +54,7 @@ var Container = (function() {
         return;
       this.dropTetris(new Tetris(this, 3, 3, Math.random()));
       this.removeCompletedRows();
+      this.messenger();
       if (this.game.combo.increaseEnergy(0.2)) {
         // true means reach limit
         // time to explode
@@ -251,21 +254,27 @@ var Container = (function() {
 
   Container.prototype.refreshView = function(animated) {
     var container = this;
+
+    function animationEnd(e) {
+      e.target.classList.remove('container__block--occupy');
+      e.target.classList.remove('container__block--occupying');
+      e.target.removeEventListener('animationend', animationEnd, false);
+      --container.animatedBlocks;
+    }
     this.map.forEach(function(y) {
       y.forEach(function(block) {
+        // no occupy
         if (block.occupy === 0 && block.view.classList.contains('container__block--occupy')) {
           if (animated) {
-            ++ container.animatedBlocks;
-            block.view.addEventListener("animationend", function(e) {
-              block.view.classList.remove('container__block--occupy');
-              block.view.classList.remove('container__block--occupying');
-              -- container.animatedBlocks;
-            }, false);
+            ++container.animatedBlocks;
+            block.view.addEventListener("animationend", animationEnd, false);
             block.view.classList.add('container__block--occupying');
           } else {
             block.view.classList.remove('container__block--occupy');
           }
+          // occupy
         } else if (block.occupy != 0 && !block.view.classList.contains('container__block--occupy')) {
+          block.view.removeEventListener('animationend', animationEnd, false);
           block.view.classList.add('container__block--occupy');
         }
       })
@@ -287,9 +296,28 @@ var Container = (function() {
     this.fallSpeed = this.OriginalSpeed;
   };
 
+  Container.prototype.generateMessenger = function() {
+    var conv = this.game.conversation;
+    // determine if localscore
+    var localScore = this.game.menu.score.getScoreLocal();
+    var crossedLevel = 0;
+    console.log(localScore);
+    return function() {
+      var curScore = this.game.combo.score;
+      var level = 0;
+      localScore.forEach(function(s) {
+        if (curScore > s)
+          ++level;
+      })
+      if (level > crossedLevel) {
+        conv.enQueue(conv.fillData(conv.MESSAGE["localScore"][0], [level, this.game.combo.score]));
+        crossedLevel = level;
+      }
+    }
+  };
+
   Container.prototype.drawContainer = function() {
     var view = this.game.view;
-
     function newDiv(classes) {
       var div = document.createElement('div');
       classes.forEach(function(c) {

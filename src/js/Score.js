@@ -14,8 +14,8 @@ var Score = (function() {
   };
 
   Score.prototype.saveScoreLocal = function(score) {
-    var curScore = localStorage.getItem('tetris-score');
-    // if (!curScore || !curScore.length)
+    var curScore = JSON.parse(localStorage.getItem('tetris-score'));
+    if (!curScore || !curScore.length)
       curScore = [];
     curScore.push(score);
     localStorage.setItem('tetris-score', JSON.stringify(curScore));
@@ -23,9 +23,13 @@ var Score = (function() {
 
   Score.prototype.getScoreLocal = function() {
     var score = JSON.parse(localStorage.getItem('tetris-score'));
-    score.sort(function(x, y) {
-      return y - x;
-    });
+    if (score)
+      score
+      .sort(function(x, y) {
+        return y - x;
+      })
+      // trim more then 3 score
+      .splice(3, 100);
     return score ? score : [];
   };
 

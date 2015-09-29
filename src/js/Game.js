@@ -1,11 +1,12 @@
 var Game = (function() {
   var Game = function() {};
 
-  Game.prototype.init = function(container, control, menu1, menu2, width, height, speed, views) {
+  Game.prototype.init = function(container, control, menu1, menu2, conversation, width, height, speed, views) {
     this.container = container;
     this.control = control;
     this.menu = menu1;
     this.rankMenu = menu2;
+    this.conversation = conversation;
 
     this.view = views.target;
     this.combo = new Combo();
@@ -13,6 +14,7 @@ var Game = (function() {
     this.container.bind(views.next);
     this.menu.bind(this, views.menu, 0);
     this.rankMenu.bind(this, views.rankMenu, 1);
+    this.conversation.bind(views.conversation);
 
     this.container.init(this, width, height, speed);
     this.control.init(this);
@@ -25,6 +27,7 @@ var Game = (function() {
   Game.prototype.restart = function() {
     this.container.restart();
     this.combo.reset();
+    this.conversation.clear();
     this.isLose = false;
   };
 

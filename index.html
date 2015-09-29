@@ -5,6 +5,7 @@
   <title>Howard Tetris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="src/css/game.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
@@ -69,10 +70,17 @@
   </div>
   <div class='flexbox'>
     <div class='main'>
+      <div class='sidebar sidebar--reverse'>
+        <div class='sidebar__element'>
+          <div id='conversation' class='sidebar__element__conversation reversed-color'>
+            you are not good!
+          </div>
+        </div>
+      </div>
       <div class='game transible' id='game'>
       </div>
       <div class='sidebar'>
-        <div class=' sidebar__element'>
+        <div class='sidebar__element'>
           <div class='sidebar__element__title'>NEXT</div>
           <div class='sidebar__element__next'>
             <div class='sidebar__element__next__row clearfix'>
@@ -110,6 +118,7 @@
   <script type="text/javascript" src='src/js/Combo.js'></script>
   <script type="text/javascript" src='src/js/Menu.js'></script>
   <script type="text/javascript" src='src/js/Score.js'></script>
+  <script type="text/javascript" src='src/js/Conversation.js'></script>
   <script type="text/javascript">
   var game = new Game();
 
@@ -118,6 +127,7 @@
     new Control(),
     new Menu(),
     new Menu(),
+    new Conversation(),
     12,
     19,
     30, {
@@ -126,7 +136,8 @@
       score: document.querySelector('#score'),
       next: document.querySelectorAll('.sidebar__element__next__block'),
       menu: document.querySelector('#start_menu'),
-      rankMenu: document.querySelector('#rank_menu')
+      rankMenu: document.querySelector('#rank_menu'),
+      conversation: document.querySelector('#conversation')
     });
   </script>
 </body>
