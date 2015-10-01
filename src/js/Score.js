@@ -30,7 +30,9 @@ var Score = (function() {
       })
       // trim more then 3 score
       .splice(3, 100);
-    return score ? score : [];
+    else
+      score = [];
+    return score;
   };
 
   Score.prototype.setScoreParse = function(name, score, callback) {
