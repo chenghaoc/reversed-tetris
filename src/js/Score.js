@@ -23,7 +23,7 @@ var Score = (function() {
 
   Score.prototype.getScoreLocal = function() {
     var score = JSON.parse(localStorage.getItem('tetris-score'));
-    if (score)
+    if (score && score.length)
       score
       .sort(function(x, y) {
         return y - x;
