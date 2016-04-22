@@ -6,7 +6,8 @@ Reversed-Tetris is a web-based game written in pure JavaScript without any depen
 
 ## Contribution
 If you have any idea regarding the gameplay or code structure, I'm really glad to hear your advice.
-Issues and PR are welcome!
+
+Issues and PR are both welcome!
 
 ## License
 MIT
