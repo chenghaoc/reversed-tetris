@@ -29,7 +29,10 @@
   <div id='rank_menu' class='menu display-none'>
     <div class='menu__panel menu__panel--rank'>
       <div class='menu__panel--rank__wrapper'>
-        <h1 class='menu__panel--rank__title'>Globel Ranking</h1>
+        <h1 class='menu__panel--rank__title'>
+          <span>Globel Ranking</span>
+          <a class="github-button" style='display: inline-block;'href="https://github.com/changbenny/reversed-tetris" data-style="mega" aria-label="Star changbenny/reversed-tetris on GitHub">Star</a>
+        </h1>
         <div class='menu__panel--rank__element clearfix'>
           <div class='menu__panel--rank__element__name'></div>
           <div class='menu__panel--rank__element__score'></div>
@@ -111,7 +114,7 @@
   <script type="text/javascript" src='src/js/Menu.js'></script>
   <script type="text/javascript" src='src/js/Score.js'></script>
   <script type="text/javascript">
-  var game = new Game();
+  var game = new Game()
 
   game.init(
     new Container(),
@@ -127,8 +130,9 @@
       next: document.querySelectorAll('.sidebar__element__next__block'),
       menu: document.querySelector('#start_menu'),
       rankMenu: document.querySelector('#rank_menu')
-    });
+    })
   </script>
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>
