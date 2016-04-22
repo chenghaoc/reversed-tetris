@@ -1,5 +1,5 @@
 # [Reversed-Tetris](http://changbenny.github.io/reversed-tetris/)
-
+![logo](https://github.com/changbenny/reversed-tetris/blob/master/logo.png)
 #### Play the [game](http://changbenny.github.io/reversed-tetris/)!
 
 Reversed-Tetris is a web-based game written in pure JavaScript without any dependency. Be compare with most web-based games, Reversed-Tetris use Dom as the render engine, instead of the canvas. It's less performant, but more like a "web platform" prodact.
