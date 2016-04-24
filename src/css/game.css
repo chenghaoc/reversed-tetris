@@ -2,211 +2,212 @@
 /**/
 
 * {
-	margin:0;
-	padding:0;
+  margin:0;
+  padding:0;
 }
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /**/
 html, body {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
 }
 /**/
 
 .flexbox {
-	width: 100%;
-	height: 100%;
-	display: flex;
+  width: 100%;
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .main {
-	width: 610px;
+  width: 610px;
 }
 
 .game {
-	float: left;
+  float: left;
 }
 
 .menu {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-	.menu__panel {
-		position: relative;
-		width: 100%;
-		padding: .5em 1em;
-		text-align: center;
-		background-color: #ecf0f1;
+  .menu__panel {
+    position: relative;
+    width: 100%;
+    padding: .5em 1em;
+    text-align: center;
+    background-color: #ecf0f1;
 
-		display: flex;
-		justify-content: center;
-  	align-items: center;
-	}
-		.menu__panel--rank {
-			padding: .5em 1em;
-			background-color: #ecf0f1;
-		}
-			.menu__panel--rank__title {
-					margin: 20px;
-					padding-bottom: 10px;
-					border-bottom: 1px solid black;
-			}
-			.menu__panel--rank__element {
-					margin: 10px 20px;
-			}
-			.menu__panel--rank__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    .menu__panel--rank {
+      padding: .5em 1em;
+      background-color: #ecf0f1;
+    }
+      .menu__panel--rank__title {
+          margin: 20px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid black;
+      }
+      .menu__panel--rank__element {
+          margin: 10px 20px;
+      }
+      .menu__panel--rank__wrapper {
 
-			}
+      }
 
-				.menu__panel--rank__element__name {
-					float: left;
-				}
-				.menu__panel--rank__element__score {
-					float: right;
-				}
-		.menu__panel__block {
-			float: left;
-			width: 150px;
-			height: 100%;
-		}
-			.menu__panel__block--header {
-				border-right: 1px solid #000000;
-			}
-			.menu__panel__block--rank {
-			}
-		.menu__panel__element {
-		}
-			.menu__panel__element--score {
-				float: left;
-			}
-			.menu__panel__element--high-score {
-				float: left;
-			}
-			.menu__panel__element--slash {
-				float: left;
-				padding: 0 10px;
-			}
-			.menu__panel__element--input {
-				border: 0;
+        .menu__panel--rank__element__name {
+          float: left;
+        }
+        .menu__panel--rank__element__score {
+          float: right;
+        }
+    .menu__panel__block {
+      float: left;
+      width: 150px;
+      height: 100%;
+    }
+      .menu__panel__block--header {
+        border-right: 1px solid #000000;
+      }
+      .menu__panel__block--rank {
+      }
+    .menu__panel__element {
+    }
+      .menu__panel__element--score {
+        float: left;
+      }
+      .menu__panel__element--high-score {
+        float: left;
+      }
+      .menu__panel__element--slash {
+        float: left;
+        padding: 0 10px;
+      }
+      .menu__panel__element--input {
+        border: 0;
 
-				border-bottom: 1px solid black;
-				padding-bottom: 5px;
-				padding-left: 5px;
-    		background-color: #ecf0f1;
-    		-webkit-appearance:none;
-    		outline: 0;
-			}
-			.menu__panel__element--input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    		color: #2e8ece;
-			}
-		.menu__panel__header {
-			font-size: 24pt;
-		}
-		.menu__panel__btn {
-			min-width: 80px;
-			margin-bottom: 5px;
-			padding: 6px;
-			font-size: 9pt;
-			background: #ecf0f1;
-			border: 1px solid black;
-			cursor: pointer;
-		}
-		.menu__panel__btn:hover {
-			background: #000000;
-			color: #ecf0f1;
-		}
-		.menu__panel__score {
-			font-size: 24pt;
-		}
+        border-bottom: 1px solid black;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        background-color: #ecf0f1;
+        -webkit-appearance:none;
+        outline: 0;
+      }
+      .menu__panel__element--input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: #2e8ece;
+      }
+    .menu__panel__header {
+      font-size: 24pt;
+    }
+    .menu__panel__btn {
+      min-width: 80px;
+      margin-bottom: 5px;
+      padding: 6px;
+      font-size: 9pt;
+      background: #ecf0f1;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+    .menu__panel__btn:hover {
+      background: #000000;
+      color: #ecf0f1;
+    }
+    .menu__panel__score {
+      font-size: 24pt;
+    }
 
 .sidebar {
-	width: 200px;
-	float: left;
+  width: 200px;
+  float: left;
 }
-	.sidebar__element {
-		margin: 1em 0;
-		padding: .3em .5em;
-	}
-		.sidebar__element__next {
-			width: 100px;
-    	margin: 0 auto;
-		}
-			.sidebar__element__next__row {}
-			.sidebar__element__next__block {
-				float: left;
-				width: 30px;
-				height: 30px;
-				margin: 1px;
-			}
-			.sidebar__element__next__block--fill {
-				background: black;
-			}
-		.sidebar__element__combo {
-			overflow: hidden;
-			width: 0;
-			height: 30px;
-			background: #c0392b;
-		}
-		.sidebar__element__score {
-			font-size: 36pt;
-			text-align: center;
-			text-decoration: underline;
-			font-weight: bolder;
-		}
-		.sidebar__element__title {
-			font-size: 16pt;
-			line-height: 40pt;
-			text-align: center;
-			text-decoration: none;
-		}
+  .sidebar__element {
+    margin: 1em 0;
+    padding: .3em .5em;
+  }
+    .sidebar__element__next {
+      width: 100px;
+      margin: 0 auto;
+    }
+      .sidebar__element__next__row {}
+      .sidebar__element__next__block {
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin: 1px;
+      }
+      .sidebar__element__next__block--fill {
+        background: black;
+      }
+    .sidebar__element__combo {
+      overflow: hidden;
+      width: 0;
+      height: 30px;
+      background: #c0392b;
+    }
+    .sidebar__element__score {
+      font-size: 36pt;
+      text-align: center;
+      text-decoration: underline;
+      font-weight: bolder;
+    }
+    .sidebar__element__title {
+      font-size: 16pt;
+      line-height: 40pt;
+      text-align: center;
+      text-decoration: none;
+    }
 
 .container {}
-	.container__row {}
-	.container__block {
-		float: left;
-		width: 30px;
-		height: 30px;
-		margin: 2px;
-		background: black;
-	}
-	.container__block--occupy {
-		background: #7f8c8d;
-	}
-	.container__block--occupying {
-		-webkit-animation-duration: .3s;
+  .container__row {}
+  .container__block {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    background: black;
+  }
+  .container__block--occupy {
+    background: #7f8c8d;
+  }
+  .container__block--occupying {
+    -webkit-animation-duration: .3s;
     -webkit-animation-name: occupying;
-	}
-	.container__block--tetris--red {
-		background: #e74c3c;
-	}
-	.container__block--tetris--orange {
-		background: #f39c12;
-	}
-	.container__block--tetris--yellow {
-		background: #f1c40f;
-	}
-	.container__block--tetris--green {
-		background: #2ecc71;
-	}
-	.container__block--tetris--blue {
-		background: #3498db;
-	}
-	.container__block--tetris--purple {
-		background: #9b59b6;
-	}
+  }
+  .container__block--tetris--red {
+    background: #e74c3c;
+  }
+  .container__block--tetris--orange {
+    background: #f39c12;
+  }
+  .container__block--tetris--yellow {
+    background: #f1c40f;
+  }
+  .container__block--tetris--green {
+    background: #2ecc71;
+  }
+  .container__block--tetris--blue {
+    background: #3498db;
+  }
+  .container__block--tetris--purple {
+    background: #9b59b6;
+  }
 @-webkit-keyframes occupying {
   from {
     background: #7f8c8d;
@@ -233,20 +234,20 @@ html, body {
 }
 
 .transible {
-	transition: all .1s;
+  transition: all .1s;
 }
 .slow-transible {
-	transition: all 2s;
+  transition: all 2s;
 }
 .display-none {
-	display: none;
+  display: none;
 }
 .filter-cover {
-	filter: blur(2px);
+  filter: blur(2px);
   -webkit-filter: blur(2px);
 }
 
 .color-emphasis {
-	color: #9b59b6;
+  color: #9b59b6;
 }
 
